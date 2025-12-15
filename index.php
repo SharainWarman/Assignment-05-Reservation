@@ -5,20 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+     form{
+        margin: 20px;
+     }
+ 
+
+label {
+  
+  width: 150px;
+  
+}
+
+input[type="text"],
+input[type="date"],
+select {
+  width: 200px;
+  margin-bottom: 5px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.box {
+  display: inline-block;
+}
+
+    </style>
 </head>
 
 <body>
     <?php
-    $name =$board="";
-    $riverSideHotel = [7500,8500,10000];
-    $lagoonViewHotel = [8500,10000,12500];
-    $natureVilla = [10000,12500,15000];
-    $beachResort = [12500,15000,20000];
+    $name = $board = "";
+    $riverSideHotel = [7500, 8500, 10000];
+    $lagoonViewHotel = [8500, 10000, 12500];
+    $natureVilla = [10000, 12500, 15000];
+    $beachResort = [12500, 15000, 20000];
     $spa = 5000;
     $cycling = 400;
     $swimming = 1000;
     $gym = 850;
-    $numberOfDays = $SpaHr = $CyclingHr = $SwimmingHr = $GymHr =$total= 0;
+    $numberOfDays = $SpaHr = $CyclingHr = $SwimmingHr = $GymHr = $total = 0;
 
     $fullBoard = 3500;
 
@@ -28,27 +59,27 @@
         $checkoutDate = $_POST['date2'];
         $hotel = $_POST['hotel'];
         $room = $_POST['room'];
-        $board=$_POST['board'] ?? 'half';
+        $board = $_POST['board'] ?? 'half';
         $date1 = new DateTime($checkinDate);
         $date2 = new DateTime($checkoutDate);
         $interval = $date1->diff($date2);
         $numberOfDays = $interval->days;
 
-if (isset($_POST['spa'])) {
-    $SpaHr = (int) $_POST['spa_hr'];
-}
+        if (isset($_POST['spa'])) {
+            $SpaHr = (int) $_POST['spa_hr'];
+        }
 
-if (isset($_POST['cycling'])) {
-    $CyclingHr = (int) $_POST['cycling_hr'];
-}
+        if (isset($_POST['cycling'])) {
+            $CyclingHr = (int) $_POST['cycling_hr'];
+        }
 
-if (isset($_POST['swimming'])) {
-    $SwimmingHr = (int) $_POST['swimming_hr'];
-}
+        if (isset($_POST['swimming'])) {
+            $SwimmingHr = (int) $_POST['swimming_hr'];
+        }
 
-if (isset($_POST['gym'])) {
-    $GymHr = (int) $_POST['gym_hr'];
-}
+        if (isset($_POST['gym'])) {
+            $GymHr = (int) $_POST['gym_hr'];
+        }
         if ($hotel == "hotel1") {
             if ($room == "standard") {
                 $total += $riverSideHotel[0] * $numberOfDays;
@@ -84,9 +115,9 @@ if (isset($_POST['gym'])) {
         }
         $total += ($SpaHr * $spa) + ($CyclingHr * $cycling) + ($SwimmingHr * $swimming) + ($GymHr * $gym);
         if ($board == "full") {
-    $total += $fullBoard;
-}
-        
+            $total += $fullBoard;
+        }
+
     }
     ?>
     <form action="receipt.php" method="POST">
@@ -106,7 +137,10 @@ if (isset($_POST['gym'])) {
             <option value="hotel4">Beach Resort</option>
         </select>
         <br>
-        <label for="room">Room Type</label>
+        
+        <label for="room" class="room-type-title">Room Type</label>
+        
+        <div class="box">
         <input type="radio" id="standard" name="room" value="standard" required>
         <label for="standard">Standard Double</label>
         <br>
@@ -115,8 +149,9 @@ if (isset($_POST['gym'])) {
         <br>
         <input type="radio" id="suite" name="room" value="suite" required>
         <label for="suite">Executive Suite</label>
-
-        <br>
+        </div>
+        
+        
 
         <table>
             <tr>
@@ -145,11 +180,14 @@ if (isset($_POST['gym'])) {
         <input type="radio" id="half" name="board" value="half">
         <label for="half">Half Board</label>
         <input type="radio" id="full" name="board" value="full">
-        <label for="full" >Full Board</label>
+        <label for="full">Full Board</label>
         <br>
 
         <input type="submit" value="Reserve">
     </form>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
 
 </html>
